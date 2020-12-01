@@ -5,6 +5,12 @@ UnitySceneを自動でバックアップを定期的にするアセット
 
 ## 📖概要
 - VRCのQuest対応でShaderの置き換えとDynamicBoneの削除が必要な為、一括で対応できるものを作りました。
+- 全てのMaterialのShaderをVRChat/Mobile/Toon Litに置き換えます。
+- アバターのDynamicBoneを全て削除します。
+- DynamicBoneをインポートしていなくMissingになっている場合も削除します。
+
+## 💥注意
+- 既存のMaterialを上書きしてしまいます。
  
 ## 💻要件
 Unity2018.4.20f1にて作成
