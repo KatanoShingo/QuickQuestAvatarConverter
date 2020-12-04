@@ -24,7 +24,7 @@ public class QuickQuestAvatarConverter : EditorWindow
             return;
         }
 
-        var materials = renderer.sharedMaterials;
+        var materials = renderer.materials;
 
         foreach( var material in materials )
         {
