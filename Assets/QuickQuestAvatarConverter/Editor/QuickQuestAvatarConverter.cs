@@ -10,6 +10,8 @@ public class QuickQuestAvatarConverter : EditorWindow
 
         foreach( var item in allGameObject )
         {
+            GameObjectUtility.RemoveMonoBehavioursWithMissingScript( item );
+            
             ChangeShader( item );
             DeleteBone( item );
         }
@@ -34,18 +36,24 @@ public class QuickQuestAvatarConverter : EditorWindow
 
     static void DeleteBone( GameObject go )
     {
-        GameObjectUtility.RemoveMonoBehavioursWithMissingScript( go );
+        var dynamicBone = go.GetComponent( "DynamicBone" );
+        var dynamicBoneCollider = go.GetComponent( "DynamicBoneCollider" );
 
-        var dynamicBone = go.GetType().GetMethod( "DynamicBone" );
-#if dynamicBone != null
+        if( dynamicBone == null && dynamicBoneCollider == null )
+        {
+            return;
+        }
 
-        GameObject.DestroyImmediate( go.GetComponent<DynamicBone>() );
-#endif
+        if( dynamicBone != null )
+        {
+            GameObject.DestroyImmediate( dynamicBone );
+        }
 
-        var dynamicBoneCollider = go.GetType().GetMethod( "DynamicBoneCollider" );
-#if dynamicBoneCollider != null
+        if( dynamicBoneCollider != null )
+        {
+            GameObject.DestroyImmediate( dynamicBoneCollider );
+        }
 
-        GameObject.DestroyImmediate( go.GetComponent<DynamicBoneCollider>() );
-#endif 
+        DeleteBone( go );
     }
 }
